@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     TEENS CUP — LANDING PAGE
+     ============================================================
+     PARA EDITAR LA PÁGINA, MIRÁ EL BLOQUE <script id="config"> AL FINAL.
+     Ahí cambiás:
+        - El número de WhatsApp
+        - Todos los textos principales
+        - Stats (números)
+        - Sponsors
+        - FAQs
+        - Links a redes
+     EL LOGO ya está embebido. Si querés cambiarlo, reemplazá el data: del <img class="logo">.
+     ============================================================ -->
+
+<title>Teens Cup — El Mundial Escolar de Fútbol Premium</title>
+<meta name="description" content="El torneo de fútbol interescolar más grande para adolescentes. Canchas profesionales, transmisiones en vivo, premios reales y el Mundial 2026. Inscribí tu equipo.">
+<meta name="theme-color" content="#0A0A0A">
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Teens Cup — El Mundial Escolar de Fútbol">
+<meta property="og:description" content="El torneo más importante para adolescentes. Cancha pro, transmisiones, premios reales. Mundial 2026.">
+<meta property="og:image" content="https://teenscup.com.ar/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon (mismo logo) -->
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Colors — extracted from Teens Cup logo */
+  --bg:        #0A0A0A;
+  --bg-2:      #121212;
+  --card:      #161616;
+  --card-2:    #1C1C1C;
+  --line:      rgba(255, 255, 255, 0.08);
+  --line-2:    rgba(255, 255, 255, 0.16);
+  --ink:       #FFFFFF;
+  --ink-dim:   #B8B8B8;
+  --ink-mute:  #6E6E6E;
+  --orange:    #FF6B1A;        /* matches logo */
+  --orange-hi: #FF8A3D;
+  --orange-lo: #C84A05;
+  --green-wa:  #25D366;
+
+  /* Type */
+  --display: 'Anton', 'Impact', sans-serif;
+  --body:    'Inter Tight', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+
+  /* Layout */
+  --w-max:   1280px;
+  --pad-x:   clamp(20px, 5vw, 64px);
+  --radius:  4px;
+  --radius-l: 16px;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg, video { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+ul, ol { list-style: none; }
+
+::selection { background: var(--orange); color: #000; }
+
+/* Grain overlay — subtle premium texture */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.display {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+.section-num {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.wrap {
+  width: 100%;
+  max-width: var(--w-max);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+section { position: relative; padding: clamp(80px, 12vh, 140px) 0; }
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.section-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: 16px var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 10, 10, 0);
+  backdrop-filter: blur(0);
+  transition: background .3s ease, backdrop-filter .3s ease, border-color .3s ease;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-color: var(--line);
+}
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--display);
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.nav__brand img { width: 36px; height: 36px; object-fit: contain; }
+.nav__menu {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.nav__menu a {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  transition: color .2s;
+  padding: 6px 0;
+}
+.nav__menu a:hover { color: var(--ink); }
+.nav__cta {
+  background: var(--orange);
+  color: #000;
+  padding: 10px 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: background .2s, transform .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav__cta:hover { background: var(--orange-hi); transform: translateY(-1px); }
+.nav__burger {
+  display: none;
+  width: 36px; height: 36px;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+.nav__burger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--ink);
+  transition: transform .3s;
+}
+@media (max-width: 880px) {
+  .nav__menu {
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    padding: 24px var(--pad-x) 32px;
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-120%);
+    transition: transform .3s ease;
+  }
+  .nav__menu.open { transform: translateY(0); }
+  .nav__menu a { padding: 16px 0; border-bottom: 1px solid var(--line); width: 100%; }
+  .nav__menu a:last-of-type { border: none; }
+  .nav__menu .nav__cta { margin-top: 12px; align-self: flex-start; }
+  .nav__burger { display: flex; }
+  .nav__cta--desktop { display: none; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 110px;
+  padding-bottom: 60px;
+  overflow: hidden;
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 107, 26, 0.18), transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(255, 107, 26, 0.10), transparent 60%),
+    linear-gradient(180deg, #0A0A0A 0%, #050505 100%);
+}
+/* Hero video — se activa solo si existe el archivo media/hero.mp4 */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity .8s ease;
+}
+.hero__video.loaded { opacity: 0.4; }
+.hero__video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.85) 75%, #0A0A0A 100%);
+  pointer-events: none;
+}
+.hero__bg::after {
+  /* Field-line pattern very subtle */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+.hero__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 80px;
+  flex-wrap: wrap;
+}
+.hero__kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero__kicker .dot {
+  width: 8px; height: 8px;
+  background: var(--orange);
+  border-radius: 50%;
+  box-shadow: 0 0 16px var(--orange);
+  animation: pulse 1.8s infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.3); opacity: 0.6; }
+}
+.hero__date {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+.hero__title {
+  font-size: clamp(64px, 13vw, 220px);
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+.hero__title .accent { color: var(--orange); }
+.hero__title .outline {
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+}
+.hero__sub {
+  max-width: 620px;
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: var(--ink-dim);
+  line-height: 1.5;
+  margin-bottom: 40px;
+}
+.hero__cta-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.btn-primary {
+  background: var(--orange);
+  color: #000;
+  padding: 18px 32px;
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: background .2s, transform .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.btn-primary:hover { background: var(--orange-hi); transform: translateY(-2px); }
+.btn-primary svg { width: 22px; height: 22px; }
+.btn-ghost {
+  border: 1px solid var(--line-2);
+  color: var(--ink);
+  padding: 18px 28px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: border-color .2s, background .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-ghost:hover { border-color: var(--ink); background: rgba(255,255,255,0.03); }
+
+.hero__stats {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.hero__stat {
+  padding: 24px 16px;
+  border-right: 1px solid var(--line);
+}
+.hero__stat:last-child { border-right: none; }
+.hero__stat strong {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.hero__stat span {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+@media (max-width: 720px) {
+  .hero__stats { grid-template-columns: repeat(2, 1fr); }
+  .hero__stat { border-bottom: 1px solid var(--line); }
+  .hero__stat:nth-child(2) { border-right: none; }
+  .hero__stat:nth-child(3), .hero__stat:nth-child(4) { border-bottom: none; }
+}
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.marquee {
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--orange);
+  color: #000;
+  overflow: hidden;
+  position: relative;
+}
+.marquee__track {
+  display: flex;
+  gap: 48px;
+  white-space: nowrap;
+  animation: scroll 36s linear infinite;
+  font-family: var(--display);
+  font-size: clamp(48px, 8vw, 120px);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.marquee__track span { display: inline-flex; align-items: center; gap: 48px; }
+.marquee__track .dot {
+  width: 14px; height: 14px;
+  background: #000;
+  border-radius: 50%;
+  display: inline-block;
+}
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+
+/* ============================================================
+   QUÉ ES
+   ============================================================ */
+.split {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .split { grid-template-columns: 1fr; gap: 48px; }
+}
+.split__title {
+  font-size: clamp(40px, 6vw, 80px);
+  margin-bottom: 32px;
+}
+.split__title .accent { color: var(--orange); }
+.split__lead {
+  font-size: clamp(17px, 1.4vw, 19px);
+  color: var(--ink-dim);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 600px) { .value-grid { grid-template-columns: 1fr; } }
+.value-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 28px 24px;
+  border-radius: var(--radius-l);
+  transition: border-color .25s, transform .25s;
+  position: relative;
+  overflow: hidden;
+}
+.value-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+.value-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s;
+}
+.value-card:hover::before { transform: scaleX(1); }
+.value-card__icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 107, 26, 0.14);
+  border-radius: 10px;
+  color: var(--orange);
+  margin-bottom: 18px;
+}
+.value-card__icon svg { width: 22px; height: 22px; }
+.value-card__title {
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.value-card__text {
+  font-size: 14px;
+  color: var(--ink-dim);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   EXPERIENCIA — BIG TILES
+   ============================================================ */
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+}
+.exp-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color .25s, background .25s;
+}
+.exp-card:hover { border-color: var(--orange); background: var(--card-2); }
+.exp-card.span-7 { grid-column: span 7; }
+.exp-card.span-5 { grid-column: span 5; }
+.exp-card.span-4 { grid-column: span 4; }
+.exp-card.span-8 { grid-column: span 8; }
+.exp-card.span-6 { grid-column: span 6; }
+.exp-card.span-12 { grid-column: span 12; min-height: 200px; }
+@media (max-width: 880px) {
+  .exp-card.span-7, .exp-card.span-5,
+  .exp-card.span-4, .exp-card.span-8,
+  .exp-card.span-6, .exp-card.span-12 { grid-column: span 12; }
+}
+.exp-card__num {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--orange);
+}
+.exp-card__title {
+  font-family: var(--display);
+  font-size: clamp(28px, 3.6vw, 44px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+.exp-card__text {
+  color: var(--ink-dim);
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 540px;
+}
+.exp-card__deco {
+  position: absolute;
+  right: -40px;
+  bottom: -40px;
+  font-family: var(--display);
+  font-size: 240px;
+  color: rgba(255, 107, 26, 0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ============================================================
+   COUNTERS / STATS BIG
+   ============================================================ */
+.big-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+}
+.big-stat {
+  padding: 56px 24px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.big-stat:nth-child(4n) { border-right: none; }
+@media (max-width: 880px) {
+  .big-stats { grid-template-columns: repeat(2, 1fr); }
+  .big-stat:nth-child(2n) { border-right: none; }
+  .big-stat:nth-child(odd):not(:nth-child(4n)) { border-right: 1px solid var(--line); }
+}
+.big-stat__num {
+  font-family: var(--display);
+  font-size: clamp(64px, 8vw, 110px);
+  line-height: 0.9;
+  color: var(--ink);
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+.big-stat__num .symbol { color: var(--orange); }
+.big-stat__label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* ============================================================
+   STEPS / CÓMO FUNCIONA
+   ============================================================ */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 880px) { .steps { grid-template-columns: 1fr; } }
+.step {
+  padding: 40px 28px;
+  border-right: 1px solid var(--line);
+  position: relative;
+  transition: background .25s;
+}
+.step:last-child { border-right: none; }
+@media (max-width: 880px) {
+  .step { border-right: none; border-bottom: 1px solid var(--line); }
+  .step:last-child { border-bottom: none; }
+}
+.step:hover { background: var(--card); }
+.step__num {
+  font-family: var(--display);
+  font-size: 80px;
+  color: var(--orange);
+  line-height: 0.9;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+.step__title {
+  font-family: var(--display);
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
+.step__text {
+  font-size: 14px;
+  color: var(--ink-dim);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   MUNDIAL — FEATURED BLOCK
+   ============================================================ */
+.mundial {
+  position: relative;
+  background: linear-gradient(135deg, #1A0A02 0%, #0A0A0A 60%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: clamp(48px, 8vw, 96px);
+  overflow: hidden;
+}
+.mundial::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,107,26,0.35), transparent 65%);
+  pointer-events: none;
+}
+.mundial__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: center;
+}
+@media (max-width: 880px) { .mundial__inner { grid-template-columns: 1fr; } }
+.mundial__year {
+  font-family: var(--display);
+  font-size: clamp(120px, 24vw, 320px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  -webkit-text-stroke: 2px var(--orange);
+  color: transparent;
+  text-shadow: 0 0 60px rgba(255, 107, 26, 0.2);
+}
+.mundial__title {
+  font-family: var(--display);
+  font-size: clamp(40px, 5vw, 64px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+.mundial__title .accent { color: var(--orange); }
+.mundial__text {
+  color: var(--ink-dim);
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.mundial__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.mundial__list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--ink);
+}
+.mundial__list li::before {
+  content: '→';
+  color: var(--orange);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* ============================================================
+   VS / COMPARISON
+   ============================================================ */
+.vs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+@media (max-width: 720px) {
+  .vs { grid-template-columns: 1fr; }
+  .vs__divider { display: none; }
+}
+.vs__col {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  padding: 32px;
+}
+.vs__col--us {
+  background: linear-gradient(180deg, rgba(255, 107, 26, 0.08), transparent);
+  border-color: var(--orange);
+}
+.vs__head {
+  font-family: var(--display);
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.vs__col--us .vs__head { color: var(--orange); }
+.vs__list { display: flex; flex-direction: column; gap: 12px; }
+.vs__list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 15px;
+  color: var(--ink-dim);
+  line-height: 1.5;
+}
+.vs__list li::before {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.vs__col--them .vs__list li::before { content: '✕'; color: #6E6E6E; }
+.vs__col--us .vs__list li::before { content: '✓'; color: var(--orange); }
+.vs__col--us .vs__list li { color: var(--ink); }
+.vs__divider {
+  font-family: var(--display);
+  font-size: 80px;
+  color: var(--ink-mute);
+  align-self: center;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================================
+   SPONSORS
+   ============================================================ */
+.sponsors {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 880px) { .sponsors { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .sponsors { grid-template-columns: repeat(2, 1fr); } }
+.sponsor {
+  aspect-ratio: 1.4 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--display);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  transition: color .2s, background .2s;
+  text-align: center;
+  padding: 16px;
+  line-height: 1.1;
+}
+.sponsor:hover { color: var(--ink); background: var(--card); }
+@media (max-width: 880px) {
+  .sponsor:nth-child(3n) { border-right: none; }
+}
+@media (max-width: 480px) {
+  .sponsor:nth-child(3n) { border-right: 1px solid var(--line); }
+  .sponsor:nth-child(2n) { border-right: none; }
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq { max-width: 880px; }
+.faq__item {
+  border-bottom: 1px solid var(--line);
+}
+.faq__item:first-child { border-top: 1px solid var(--line); }
+.faq__q {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 0;
+  text-align: left;
+  font-family: var(--display);
+  font-size: clamp(20px, 2.4vw, 28px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  transition: color .2s;
+}
+.faq__q:hover { color: var(--orange); }
+.faq__q .icon {
+  width: 24px; height: 24px;
+  flex-shrink: 0;
+  position: relative;
+}
+.faq__q .icon::before, .faq__q .icon::after {
+  content: '';
+  position: absolute;
+  background: var(--orange);
+  transition: transform .3s;
+}
+.faq__q .icon::before { top: 50%; left: 0; right: 0; height: 2px; transform: translateY(-50%); }
+.faq__q .icon::after  { left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); }
+.faq__item.open .faq__q .icon::after { transform: translateX(-50%) rotate(90deg); }
+.faq__a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease, padding .35s ease;
+  color: var(--ink-dim);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.faq__item.open .faq__a {
+  max-height: 600px;
+  padding: 0 0 28px;
+}
+
+/* ============================================================
+   CTA FINAL
+   ============================================================ */
+.cta-final {
+  text-align: center;
+  padding: clamp(80px, 14vw, 160px) var(--pad-x);
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255,107,26,0.18), transparent 55%),
+    var(--bg);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.cta-final h2 {
+  font-family: var(--display);
+  font-size: clamp(60px, 12vw, 180px);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-final h2 .accent { color: var(--orange); }
+.cta-final p {
+  max-width: 580px;
+  margin: 0 auto 40px;
+  color: var(--ink-dim);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  padding: 64px var(--pad-x) 32px;
+  background: #050505;
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
+  gap: 48px;
+  max-width: var(--w-max);
+  margin: 0 auto;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 720px) { .footer__grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+.footer__brand {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.footer__brand img { width: 40px; height: 40px; }
+.footer__about {
+  font-size: 14px;
+  color: var(--ink-dim);
+  max-width: 320px;
+  line-height: 1.55;
+}
+.footer__col h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 16px;
+}
+.footer__col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer__col a {
+  font-size: 14px;
+  color: var(--ink-dim);
+  transition: color .2s;
+}
+.footer__col a:hover { color: var(--orange); }
+.footer__bottom {
+  max-width: var(--w-max);
+  margin: 0 auto;
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* ============================================================
+   STICKY WHATSAPP
+   ============================================================ */
+.wa-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px; height: 60px;
+  background: var(--green-wa);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+  transition: transform .25s, box-shadow .25s;
+}
+.wa-float:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(37, 211, 102, 0.55); }
+.wa-float svg { width: 30px; height: 30px; }
+.wa-float::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--green-wa);
+  opacity: 0;
+  animation: ring 2.4s infinite;
+}
+@keyframes ring {
+  0%   { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1.4);  opacity: 0; }
+}
+
+/* ============================================================
+   GALERÍA DE FOTOS
+   ============================================================ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 200px;
+  gap: 8px;
+}
+@media (max-width: 880px) { .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; } }
+.gallery__item {
+  position: relative;
+  background:
+    linear-gradient(135deg, #1A1A1A 0%, #0F0F0F 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .25s, transform .25s;
+}
+.gallery__item:hover { border-color: var(--orange); transform: translateY(-2px); }
+.gallery__item--feature { grid-column: span 2; grid-row: span 2; }
+@media (max-width: 880px) { .gallery__item--feature { grid-column: span 2; grid-row: span 1; } }
+.gallery__item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .4s;
+  z-index: 2;
+}
+.gallery__item.loaded img { opacity: 1; }
+.gallery__placeholder {
+  text-align: center;
+  padding: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  pointer-events: none;
+  z-index: 1;
+}
+.gallery__placeholder strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  color: var(--orange);
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+.gallery__item.loaded .gallery__placeholder { display: none; }
+
+/* ============================================================
+   REVEAL ON SCROLL
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<header class="nav" id="nav">
+  <a href="#" class="nav__brand" aria-label="Teens Cup">
+    <img id="logo-nav" alt="Teens Cup">
+    <span>Teens Cup</span>
+  </a>
+  <button class="nav__burger" aria-label="Abrir menú" id="burger">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="nav__menu" id="menu">
+    <a href="#que-es">Qué es</a>
+    <a href="#experiencia">Experiencia</a>
+    <a href="#galeria">Galería</a>
+    <a href="#mundial">Mundial 2026</a>
+    <a href="#faq">FAQ</a>
+    <a href="#" class="nav__cta nav__cta--desktop" data-wa="default">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A7.85 7.85 0 0012 4a7.95 7.95 0 00-6.9 11.9L4 20l4.2-1.1a8 8 0 003.8 1h.01a7.94 7.94 0 005.6-13.6zM12 18.5h-.01a6.6 6.6 0 01-3.4-.93l-.24-.14-2.5.66.67-2.43-.16-.25a6.6 6.6 0 119.66.7 6.55 6.55 0 01-4 1.39zm3.6-4.95c-.2-.1-1.17-.58-1.35-.65s-.31-.1-.45.1-.5.65-.62.78-.23.15-.43.05a5.4 5.4 0 01-2.7-2.36c-.2-.35.2-.32.58-1.07.06-.13.03-.24-.02-.34s-.45-1.08-.61-1.48-.32-.34-.45-.34h-.38a.74.74 0 00-.53.25 2.22 2.22 0 00-.69 1.65 3.86 3.86 0 00.81 2.05 8.81 8.81 0 003.36 2.97c1.25.54 1.74.59 2.36.5.38-.06 1.17-.48 1.34-.94a1.65 1.65 0 00.12-.94c-.05-.09-.18-.14-.38-.23z"/></svg>
+      Inscribir mi equipo
+    </a>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <!-- VIDEO DE FONDO (opcional). Para activarlo, poné un archivo en media/hero.mp4 -->
+  <video class="hero__video" id="hero-video" autoplay muted loop playsinline>
+    <source src="media/hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero__video-overlay"></div>
+  <div class="hero__bg"></div>
+  <div class="wrap hero__inner">
+    <div class="hero__top">
+      <div class="hero__kicker">
+        <span class="dot"></span>
+        <span class="eyebrow" data-content="hero.kicker">Inscripciones abiertas · Edición 2026</span>
+      </div>
+      <span class="hero__date" data-content="hero.location">Buenos Aires · Argentina</span>
+    </div>
+
+    <h1 class="display hero__title">
+      <span data-content="hero.line1">Tu colegio.</span><br>
+      <span data-content="hero.line2">Tu equipo.</span><br>
+      <span class="accent" data-content="hero.line3">Tu mundial.</span>
+    </h1>
+
+    <p class="hero__sub" data-content="hero.sub">
+      El torneo de fútbol interescolar más importante para adolescentes en Argentina.
+      Canchas profesionales, transmisiones en vivo, premios reales y una copa que vas
+      a recordar toda tu vida.
+    </p>
+
+    <div class="hero__cta-row">
+      <a href="#" class="btn-primary" data-wa="inscribir">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A7.85 7.85 0 0012 4a7.95 7.95 0 00-6.9 11.9L4 20l4.2-1.1a8 8 0 003.8 1h.01a7.94 7.94 0 005.6-13.6zM12 18.5h-.01a6.6 6.6 0 01-3.4-.93l-.24-.14-2.5.66.67-2.43-.16-.25a6.6 6.6 0 119.66.7 6.55 6.55 0 01-4 1.39zm3.6-4.95c-.2-.1-1.17-.58-1.35-.65s-.31-.1-.45.1-.5.65-.62.78-.23.15-.43.05a5.4 5.4 0 01-2.7-2.36c-.2-.35.2-.32.58-1.07.06-.13.03-.24-.02-.34s-.45-1.08-.61-1.48-.32-.34-.45-.34h-.38a.74.74 0 00-.53.25 2.22 2.22 0 00-.69 1.65 3.86 3.86 0 00.81 2.05 8.81 8.81 0 003.36 2.97c1.25.54 1.74.59 2.36.5.38-.06 1.17-.48 1.34-.94a1.65 1.65 0 00.12-.94c-.05-.09-.18-.14-.38-.23z"/></svg>
+        Inscribir mi equipo
+      </a>
+      <a href="#experiencia" class="btn-ghost">
+        Ver la experiencia
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="hero__stats">
+      <div class="hero__stat"><strong data-stat="teams">+120</strong><span data-content="hero.statTeamsLabel">Equipos</span></div>
+      <div class="hero__stat"><strong data-stat="players">+2.400</strong><span data-content="hero.statPlayersLabel">Jugadores</span></div>
+      <div class="hero__stat"><strong data-stat="matches">+300</strong><span data-content="hero.statMatchesLabel">Partidos</span></div>
+      <div class="hero__stat"><strong data-stat="editions">5</strong><span data-content="hero.statEditionsLabel">Ediciones</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MARQUEE
+     ============================================================ -->
+<div class="marquee">
+  <div class="marquee__track">
+    <span>Teens Cup<span class="dot"></span>Fútbol Premium<span class="dot"></span>Mundial 2026<span class="dot"></span>Buenos Aires<span class="dot"></span>Cancha Pro<span class="dot"></span></span>
+    <span>Teens Cup<span class="dot"></span>Fútbol Premium<span class="dot"></span>Mundial 2026<span class="dot"></span>Buenos Aires<span class="dot"></span>Cancha Pro<span class="dot"></span></span>
+  </div>
+</div>
+
+<!-- ============================================================
+     QUÉ ES
+     ============================================================ -->
+<section id="que-es">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">01 / 06</span>
+      <span class="eyebrow">Qué es Teens Cup</span>
+    </div>
+
+    <div class="split reveal">
+      <div>
+        <h2 class="display split__title">
+          No es un torneo más. <span class="accent">Es el torneo.</span>
+        </h2>
+        <p class="split__lead" data-content="quees.p1">
+          Teens Cup es el primer torneo interescolar de fútbol pensado como una experiencia
+          profesional para adolescentes. Cada partido se vive como una final, cada equipo
+          representa a su colegio, y cada jugada queda registrada para siempre.
+        </p>
+        <p class="split__lead" data-content="quees.p2">
+          Lo construimos con un objetivo: sacar a los chicos de la pantalla y devolverles
+          la cancha. Pero no cualquier cancha — una donde sientan que están jugando algo
+          real, importante, memorable.
+        </p>
+      </div>
+
+      <div class="value-grid">
+        <div class="value-card">
+          <div class="value-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 2a14.5 14.5 0 010 20M12 2a14.5 14.5 0 000 20M2 12h20"/></svg>
+          </div>
+          <div class="value-card__title">Cancha pro</div>
+          <p class="value-card__text">Estadios, sintético FIFA, vestuarios, árbitros oficiales. Como los grandes.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>
+          </div>
+          <div class="value-card__title">Transmisiones</div>
+          <p class="value-card__text">Cobertura en vivo, fotos profesionales y videos editados de cada partido.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h12v6a6 6 0 11-12 0V2zM10 14h4v6h-4z"/><path d="M6 22h12"/></svg>
+          </div>
+          <div class="value-card__title">Premios reales</div>
+          <p class="value-card__text">Copa, medallas, indumentaria, entradas a la cancha y experiencias únicas.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>
+          </div>
+          <div class="value-card__title">Comunidad</div>
+          <p class="value-card__text">Más de 120 equipos, 2.400 jugadores y un grupo que crece cada mes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPERIENCIA
+     ============================================================ -->
+<section id="experiencia" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">02 / 06</span>
+      <span class="eyebrow">La experiencia</span>
+    </div>
+
+    <h2 class="display reveal" style="font-size: clamp(40px, 7vw, 96px); margin-bottom: 48px; max-width: 900px;">
+      Lo que vivís cuando entrás a la cancha.
+    </h2>
+
+    <div class="exp-grid">
+      <div class="exp-card span-7 reveal">
+        <div>
+          <span class="exp-card__num">01</span>
+          <h3 class="exp-card__title">Entrada con tu equipo</h3>
+        </div>
+        <p class="exp-card__text">Pisás el césped con la camiseta de tu colegio. Locutor, presentación, fotos de equipo. Desde el primer segundo se siente como un partido oficial.</p>
+        <div class="exp-card__deco">01</div>
+      </div>
+      <div class="exp-card span-5 reveal">
+        <div>
+          <span class="exp-card__num">02</span>
+          <h3 class="exp-card__title">Cobertura full</h3>
+        </div>
+        <p class="exp-card__text">Fotos pro, videos editados, transmisión en vivo y resúmenes para que cada jugada quede registrada.</p>
+        <div class="exp-card__deco">02</div>
+      </div>
+      <div class="exp-card span-4 reveal">
+        <div>
+          <span class="exp-card__num">03</span>
+          <h3 class="exp-card__title">Vestuarios reales</h3>
+        </div>
+        <p class="exp-card__text">Charla técnica, calentamiento, salida al campo. Como en los clubes de primera.</p>
+        <div class="exp-card__deco">03</div>
+      </div>
+      <div class="exp-card span-4 reveal">
+        <div>
+          <span class="exp-card__num">04</span>
+          <h3 class="exp-card__title">Árbitros oficiales</h3>
+        </div>
+        <p class="exp-card__text">Jueces certificados, reglamento profesional, fixture serio. El nivel exige.</p>
+        <div class="exp-card__deco">04</div>
+      </div>
+      <div class="exp-card span-4 reveal">
+        <div>
+          <span class="exp-card__num">05</span>
+          <h3 class="exp-card__title">Premios para campeones</h3>
+        </div>
+        <p class="exp-card__text">Copa, medallas, indumentaria de marcas, entradas, experiencias. No te llevás un diploma.</p>
+        <div class="exp-card__deco">05</div>
+      </div>
+      <div class="exp-card span-12 reveal" style="background: linear-gradient(90deg, rgba(255,107,26,0.08), transparent 70%); border-color: rgba(255,107,26,0.3);">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 32px; justify-content: space-between; height: 100%;">
+          <div style="flex: 1; min-width: 280px;">
+            <span class="exp-card__num">06</span>
+            <h3 class="exp-card__title" style="margin-bottom: 8px;">Una historia que te llevás para siempre</h3>
+            <p class="exp-card__text">El torneo termina, pero el recuerdo no. Material visual, momentos, amigos, el grupo del colegio que se vuelve algo más.</p>
+          </div>
+          <a href="#" class="btn-primary" data-wa="info" style="flex-shrink: 0;">Quiero saber más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GALERÍA — PARA AGREGAR FOTOS, PONÉ ARCHIVOS EN images/galeria/
+     Nombres esperados: galeria-1.jpg, galeria-2.jpg, ... galeria-6.jpg
+     Si no hay foto, se muestra un placeholder elegante automáticamente.
+     ============================================================ -->
+<section id="galeria">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">·</span>
+      <span class="eyebrow">Galería</span>
+    </div>
+
+    <h2 class="display reveal" style="font-size: clamp(40px, 7vw, 96px); margin-bottom: 48px; max-width: 900px;">
+      Lo que <span style="color: var(--orange);">se vive</span>.
+    </h2>
+
+    <div class="gallery reveal">
+      <div class="gallery__item gallery__item--feature">
+        <div class="gallery__placeholder"><strong>01</strong>images/galeria/galeria-1.jpg</div>
+        <img src="images/galeria/galeria-1.jpg" alt="Teens Cup" loading="lazy">
+      </div>
+      <div class="gallery__item">
+        <div class="gallery__placeholder"><strong>02</strong>galeria-2.jpg</div>
+        <img src="images/galeria/galeria-2.jpg" alt="Teens Cup" loading="lazy">
+      </div>
+      <div class="gallery__item">
+        <div class="gallery__placeholder"><strong>03</strong>galeria-3.jpg</div>
+        <img src="images/galeria/galeria-3.jpg" alt="Teens Cup" loading="lazy">
+      </div>
+      <div class="gallery__item">
+        <div class="gallery__placeholder"><strong>04</strong>galeria-4.jpg</div>
+        <img src="images/galeria/galeria-4.jpg" alt="Teens Cup" loading="lazy">
+      </div>
+      <div class="gallery__item">
+        <div class="gallery__placeholder"><strong>05</strong>galeria-5.jpg</div>
+        <img src="images/galeria/galeria-5.jpg" alt="Teens Cup" loading="lazy">
+      </div>
+      <div class="gallery__item">
+        <div class="gallery__placeholder"><strong>06</strong>galeria-6.jpg</div>
+        <img src="images/galeria/galeria-6.jpg" alt="Teens Cup" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS
+     ============================================================ -->
+<section style="padding: 0;">
+  <div class="big-stats">
+    <div class="big-stat reveal">
+      <div class="big-stat__num"><span class="symbol">+</span><span data-stat-big="teams">120</span></div>
+      <div class="big-stat__label">Equipos participantes</div>
+    </div>
+    <div class="big-stat reveal">
+      <div class="big-stat__num"><span class="symbol">+</span><span data-stat-big="players">2400</span></div>
+      <div class="big-stat__label">Jugadores en cancha</div>
+    </div>
+    <div class="big-stat reveal">
+      <div class="big-stat__num"><span class="symbol">+</span><span data-stat-big="matches">300</span></div>
+      <div class="big-stat__label">Partidos jugados</div>
+    </div>
+    <div class="big-stat reveal">
+      <div class="big-stat__num"><span data-stat-big="editions">5</span><span class="symbol">.</span></div>
+      <div class="big-stat__label">Ediciones realizadas</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CÓMO FUNCIONA
+     ============================================================ -->
+<section id="como-funciona">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">03 / 06</span>
+      <span class="eyebrow">Cómo funciona</span>
+    </div>
+
+    <h2 class="display reveal" style="font-size: clamp(40px, 7vw, 96px); margin-bottom: 56px; max-width: 900px;">
+      De la inscripción a <span style="color: var(--orange);">levantar la copa</span>.
+    </h2>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step__num">01</div>
+        <h3 class="step__title">Inscripción</h3>
+        <p class="step__text">Escribinos por WhatsApp con el nombre de tu colegio y la categoría. Te mandamos info y te reservamos lugar.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step__num">02</div>
+        <h3 class="step__title">Armado</h3>
+        <p class="step__text">Armás tu equipo (mínimo 12 jugadores), elegís capitán y técnico. Te ayudamos con todo lo formal.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step__num">03</div>
+        <h3 class="step__title">Fixture</h3>
+        <p class="step__text">Recibís el calendario completo, las sedes y el reglamento. Cada equipo juega mínimo 5 partidos.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step__num">04</div>
+        <h3 class="step__title">A jugar</h3>
+        <p class="step__text">Empieza el torneo. Fase de grupos, eliminatorias, semis, final. La copa espera.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MUNDIAL 2026
+     ============================================================ -->
+<section id="mundial" style="background: var(--bg-2);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">04 / 06</span>
+      <span class="eyebrow">Edición especial</span>
+    </div>
+
+    <div class="mundial reveal">
+      <div class="mundial__inner">
+        <div>
+          <h2 class="mundial__title">
+            Mundial <span class="accent">Teens Cup</span> 2026
+          </h2>
+          <p class="mundial__text">
+            La edición más grande de nuestra historia. Equipos representando colegios de todo
+            el país compitiendo por el título más importante del fútbol escolar argentino.
+          </p>
+          <ul class="mundial__list">
+            <li>Fase de grupos con sorteo en vivo</li>
+            <li>Sedes multiples en zona norte y CABA</li>
+            <li>Final en estadio profesional</li>
+            <li>Premios y experiencias exclusivas</li>
+            <li>Cobertura completa para cada participante</li>
+          </ul>
+          <a href="#" class="btn-primary" data-wa="mundial">
+            Quiero estar en el Mundial
+          </a>
+        </div>
+        <div style="text-align: right;">
+          <div class="mundial__year">2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     VS / COMPARISON
+     ============================================================ -->
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">05 / 06</span>
+      <span class="eyebrow">La diferencia</span>
+    </div>
+
+    <h2 class="display reveal" style="font-size: clamp(40px, 7vw, 96px); margin-bottom: 56px; max-width: 1000px;">
+      Por qué Teens Cup <span style="color: var(--orange);">no es como los demás</span>.
+    </h2>
+
+    <div class="vs reveal">
+      <div class="vs__col vs__col--them">
+        <div class="vs__head">Torneo amateur</div>
+        <ul class="vs__list">
+          <li>Cancha cualquiera, mal estado</li>
+          <li>Sin árbitros oficiales</li>
+          <li>Sin transmisión ni cobertura</li>
+          <li>Premio simbólico, diploma</li>
+          <li>Comunicación desorganizada</li>
+          <li>Una experiencia que se olvida</li>
+        </ul>
+      </div>
+      <div class="vs__divider">VS</div>
+      <div class="vs__col vs__col--us">
+        <div class="vs__head">Teens Cup</div>
+        <ul class="vs__list">
+          <li>Estadios y canchas profesionales</li>
+          <li>Árbitros certificados, reglamento serio</li>
+          <li>Transmisión en vivo, fotos y videos pro</li>
+          <li>Copa, medallas, indumentaria y experiencias</li>
+          <li>Comunicación clara: WhatsApp directo y app</li>
+          <li>Una historia que te marca para siempre</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SPONSORS
+     ============================================================ -->
+<section style="padding-top: 60px;">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">·</span>
+      <span class="eyebrow">Confían en nosotros</span>
+    </div>
+  </div>
+  <div class="sponsors">
+    <div class="sponsor">Estudiantes<br>La Plata</div>
+    <div class="sponsor">Sponsor 2</div>
+    <div class="sponsor">Sponsor 3</div>
+    <div class="sponsor">Sponsor 4</div>
+    <div class="sponsor">Sponsor 5</div>
+    <div class="sponsor">Sponsor 6</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">06 / 06</span>
+      <span class="eyebrow">Preguntas frecuentes</span>
+    </div>
+
+    <h2 class="display reveal" style="font-size: clamp(40px, 7vw, 80px); margin-bottom: 56px;">
+      Lo que <span style="color: var(--orange);">querés saber</span>.
+    </h2>
+
+    <div class="faq reveal">
+      <div class="faq__item">
+        <button class="faq__q">¿Quiénes pueden participar?<span class="icon"></span></button>
+        <div class="faq__a"><p>Adolescentes de 13 a 18 años que estudien en colegios secundarios. Cada equipo representa a un colegio y cuenta con un mínimo de 12 jugadores y un técnico responsable.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">¿Cuánto cuesta inscribirse?<span class="icon"></span></button>
+        <div class="faq__a"><p>El valor depende de la categoría y la edición. Escribinos por WhatsApp y te pasamos los detalles actualizados, formas de pago y opciones para cuotas.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">¿Dónde se juegan los partidos?<span class="icon"></span></button>
+        <div class="faq__a"><p>Trabajamos con sedes en zona norte de Buenos Aires y CABA. Todas las canchas son profesionales o semi-profesionales con vestuarios y comodidades para los equipos.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">¿Qué incluye la inscripción?<span class="icon"></span></button>
+        <div class="faq__a"><p>Acceso al fixture completo, árbitros oficiales, cobertura fotográfica y de video, premios para campeones, sub-campeón, goleador y arquero menos vencido. Todo el material visual es tuyo para siempre.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">¿Mi colegio no participa, puedo armar un equipo igual?<span class="icon"></span></button>
+        <div class="faq__a"><p>Sí. Si tu colegio todavía no se sumó, podés ser el primero. Te ayudamos a presentar el torneo a la dirección y a armar tu equipo desde cero.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">¿Hay categoría femenina?<span class="icon"></span></button>
+        <div class="faq__a"><p>Sí. Tenemos categoría femenina creciendo edición a edición. Consultá por WhatsApp para confirmar la disponibilidad de la próxima fecha.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q">Soy padre/madre, ¿cómo me sumo al proceso?<span class="icon"></span></button>
+        <div class="faq__a"><p>Estamos en contacto directo durante todo el torneo. Recibís fechas, sedes, fotos y resúmenes. Tu hijo está acompañado, en un ambiente seguro y haciendo deporte real, no pantalla.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA FINAL
+     ============================================================ -->
+<section class="cta-final">
+  <h2 class="display">
+    El próximo <span class="accent">campeón</span><br>
+    sale de tu colegio.
+  </h2>
+  <p>Inscribí a tu equipo ahora. Las plazas son limitadas y la próxima edición arranca pronto. Dejá el "después" para los que no juegan.</p>
+  <a href="#" class="btn-primary" data-wa="default" style="font-size: 26px; padding: 22px 38px;">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A7.85 7.85 0 0012 4a7.95 7.95 0 00-6.9 11.9L4 20l4.2-1.1a8 8 0 003.8 1h.01a7.94 7.94 0 005.6-13.6zM12 18.5h-.01a6.6 6.6 0 01-3.4-.93l-.24-.14-2.5.66.67-2.43-.16-.25a6.6 6.6 0 119.66.7 6.55 6.55 0 01-4 1.39zm3.6-4.95c-.2-.1-1.17-.58-1.35-.65s-.31-.1-.45.1-.5.65-.62.78-.23.15-.43.05a5.4 5.4 0 01-2.7-2.36c-.2-.35.2-.32.58-1.07.06-.13.03-.24-.02-.34s-.45-1.08-.61-1.48-.32-.34-.45-.34h-.38a.74.74 0 00-.53.25 2.22 2.22 0 00-.69 1.65 3.86 3.86 0 00.81 2.05 8.81 8.81 0 003.36 2.97c1.25.54 1.74.59 2.36.5.38-.06 1.17-.48 1.34-.94a1.65 1.65 0 00.12-.94c-.05-.09-.18-.14-.38-.23z"/></svg>
+    Inscribir mi equipo ahora
+  </a>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="footer__grid">
+    <div>
+      <div class="footer__brand">
+        <img id="logo-foot" alt="Teens Cup">
+        <span>Teens Cup</span>
+      </div>
+      <p class="footer__about">
+        El torneo de fútbol interescolar premium para adolescentes en Argentina.
+        Sacamos a los chicos de la pantalla y los devolvemos a la cancha.
+      </p>
+    </div>
+    <div class="footer__col">
+      <h4>Navegar</h4>
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#mundial">Mundial 2026</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="#" data-wa="default">WhatsApp</a></li>
+        <li><a id="link-email" href="mailto:hola@teenscup.com.ar">Email</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Redes</h4>
+      <ul>
+        <li><a id="link-ig" href="https://instagram.com/teenscup" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a id="link-tt" href="https://tiktok.com/@teenscup" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> Teens Cup · Buenos Aires</span>
+    <span>Hecho con cancha, no con humo.</span>
+  </div>
+</footer>
+
+<!-- Sticky WhatsApp -->
+<a href="#" class="wa-float" data-wa="default" aria-label="Escribinos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A7.85 7.85 0 0012 4a7.95 7.95 0 00-6.9 11.9L4 20l4.2-1.1a8 8 0 003.8 1h.01a7.94 7.94 0 005.6-13.6zM12 18.5h-.01a6.6 6.6 0 01-3.4-.93l-.24-.14-2.5.66.67-2.43-.16-.25a6.6 6.6 0 119.66.7 6.55 6.55 0 01-4 1.39zm3.6-4.95c-.2-.1-1.17-.58-1.35-.65s-.31-.1-.45.1-.5.65-.62.78-.23.15-.43.05a5.4 5.4 0 01-2.7-2.36c-.2-.35.2-.32.58-1.07.06-.13.03-.24-.02-.34s-.45-1.08-.61-1.48-.32-.34-.45-.34h-.38a.74.74 0 00-.53.25 2.22 2.22 0 00-.69 1.65 3.86 3.86 0 00.81 2.05 8.81 8.81 0 003.36 2.97c1.25.54 1.74.59 2.36.5.38-.06 1.17-.48 1.34-.94a1.65 1.65 0 00.12-.94c-.05-.09-.18-.14-.38-.23z"/></svg>
+</a>
+
+<!-- ============================================================
+     CONFIGURACIÓN — EDITÁ ACÁ TODO LO IMPORTANTE
+     ============================================================ -->
+<script id="config">
+const CONFIG = {
+
+  // ╔═════════════════════════════════════════════════════════╗
+  // ║  WHATSAPP — CAMBIAR ESTO ANTES DE PUBLICAR             ║
+  // ╚═════════════════════════════════════════════════════════╝
+  whatsapp: "5491100000000",   // ← número con código país, sin "+", sin espacios. Ej: 549112345678
+
+  whatsappMessages: {
+    default:   "Hola! Quiero más info sobre Teens Cup.",
+    inscribir: "Hola! Quiero inscribir un equipo en Teens Cup. ¿Me pasan info?",
+    info:      "Hola! Vi la web de Teens Cup y quiero más detalles.",
+    mundial:   "Hola! Quiero participar del Mundial Teens Cup 2026."
+  },
+
+  // ╔═════════════════════════════════════════════════════════╗
+  // ║  REDES Y CONTACTO                                       ║
+  // ╚═════════════════════════════════════════════════════════╝
+  email:     "hola@teenscup.com.ar",
+  instagram: "https://instagram.com/teenscup",
+  tiktok:    "https://tiktok.com/@teenscup",
+
+  // ╔═════════════════════════════════════════════════════════╗
+  // ║  STATS — NÚMEROS QUE SE MUESTRAN                        ║
+  // ╚═════════════════════════════════════════════════════════╝
+  stats: {
+    teams:    "+120",        // hero pequeño
+    players:  "+2.400",
+    matches:  "+300",
+    editions: "5",
+    // versiones grandes (sin el "+" porque la página agrega el símbolo)
+    teamsBig:    "120",
+    playersBig:  "2400",
+    matchesBig:  "300",
+    editionsBig: "5"
+  },
+
+  // ╔═════════════════════════════════════════════════════════╗
+  // ║  TEXTOS HERO (los más importantes)                      ║
+  // ╚═════════════════════════════════════════════════════════╝
+  hero: {
+    kicker:   "Inscripciones abiertas · Edición 2026",
+    location: "Buenos Aires · Argentina",
+    line1:    "Tu colegio.",
+    line2:    "Tu equipo.",
+    line3:    "Tu mundial.",
+    sub:      "El torneo de fútbol interescolar más importante para adolescentes en Argentina. Canchas profesionales, transmisiones en vivo, premios reales y una copa que vas a recordar toda tu vida.",
+    statTeamsLabel:    "Equipos",
+    statPlayersLabel:  "Jugadores",
+    statMatchesLabel:  "Partidos",
+    statEditionsLabel: "Ediciones"
+  },
+
+  // Si querés cambiar otros textos, editalos directamente en el HTML.
+  // Cada texto importante tiene un atributo data-content="clave".
+};
+
+// ============================================================
+// LÓGICA — NO HACE FALTA TOCAR DE ACÁ PARA ABAJO
+// ============================================================
+
+(function () {
+  // -- Logo embebido en base64 --
+  const LOGO = "data:image/png;base64,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";
+  document.getElementById('logo-nav').src = LOGO;
+  document.getElementById('logo-foot').src = LOGO;
+  // favicon dinámico
+  const fv = document.querySelector('link[rel="icon"]');
+  if (fv) fv.href = LOGO;
+
+  // -- WhatsApp builder --
+  function buildWa(key) {
+    const msg = CONFIG.whatsappMessages[key] || CONFIG.whatsappMessages.default;
+    return "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+  }
+  document.querySelectorAll('[data-wa]').forEach(el => {
+    el.href = buildWa(el.getAttribute('data-wa'));
+    el.target = "_blank";
+    el.rel = "noopener";
+  });
+
+  // -- Apply config text overrides --
+  document.querySelectorAll('[data-content]').forEach(el => {
+    const path = el.getAttribute('data-content').split('.');
+    let v = CONFIG;
+    for (const k of path) { v = v && v[k]; }
+    if (typeof v === 'string') el.textContent = v;
+  });
+
+  // -- Apply stats --
+  const sm = { teams: CONFIG.stats.teams, players: CONFIG.stats.players, matches: CONFIG.stats.matches, editions: CONFIG.stats.editions };
+  document.querySelectorAll('[data-stat]').forEach(el => { el.textContent = sm[el.getAttribute('data-stat')] || el.textContent; });
+  const sb = { teams: CONFIG.stats.teamsBig, players: CONFIG.stats.playersBig, matches: CONFIG.stats.matchesBig, editions: CONFIG.stats.editionsBig };
+  document.querySelectorAll('[data-stat-big]').forEach(el => { el.textContent = sb[el.getAttribute('data-stat-big')] || el.textContent; });
+
+  // -- Apply social/email --
+  const email = document.getElementById('link-email');  if (email) email.href = "mailto:" + CONFIG.email;
+  const ig = document.getElementById('link-ig');         if (ig)    ig.href = CONFIG.instagram;
+  const tt = document.getElementById('link-tt');         if (tt)    tt.href = CONFIG.tiktok;
+
+  // -- Year --
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // -- Nav scroll --
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 30);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // -- Burger --
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('menu');
+  if (burger) burger.addEventListener('click', () => menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+  // -- Reveal on scroll --
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // -- FAQ accordion --
+  document.querySelectorAll('.faq__item').forEach(item => {
+    const q = item.querySelector('.faq__q');
+    q.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq__item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // -- Hero video: solo se muestra si carga (si no existe el archivo, queda invisible) --
+  const heroVideo = document.getElementById('hero-video');
+  if (heroVideo) {
+    heroVideo.addEventListener('loadeddata', () => heroVideo.classList.add('loaded'));
+    heroVideo.addEventListener('error', () => heroVideo.style.display = 'none');
+    // Si la fuente del video falla, también ocultamos
+    heroVideo.querySelectorAll('source').forEach(s => {
+      s.addEventListener('error', () => heroVideo.style.display = 'none');
+    });
+  }
+
+  // -- Galería: cada foto que carga marca su contenedor como "loaded" --
+  document.querySelectorAll('.gallery__item img').forEach(img => {
+    img.addEventListener('load', () => {
+      // solo si la imagen tiene tamaño real (no es un 404 servido como HTML)
+      if (img.naturalWidth > 0) img.parentElement.classList.add('loaded');
+    });
+    img.addEventListener('error', () => { /* queda placeholder visible */ });
+  });
+
+})();
+</script>
+
+</body>
+</html>
