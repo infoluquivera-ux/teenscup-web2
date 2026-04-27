@@ -92,6 +92,24 @@ ul, ol { list-style: none; }
 ::selection { background: var(--orange); color: #000; }
 
 /* Grain overlay — subtle premium texture */
+     <!-- todo tu contenido arriba -->
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
 body::before {
   content: '';
   position: fixed; inset: 0;
